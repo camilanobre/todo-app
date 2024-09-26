@@ -1,6 +1,7 @@
 import React from 'react'
 import Menu from '../template/menu'
 import Routes from './routes'
+import '../styles/custom.css';
 
 
 require('bootstrap/dist/css/bootstrap.min.css')
