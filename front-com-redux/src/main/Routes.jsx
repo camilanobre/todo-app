@@ -7,8 +7,8 @@ import About from '../about/About'
 
 const Routes = props => (
     <HashRouter>
-        <Redirect from='*' to='/todos' />
-        <Route path='/todos' component={Todo} />
+        <Redirect from='*' to='/Todo' />
+        <Route path='/Todo' component={Todo} />
         <Route path='/about' component={About} />
     </HashRouter>
 )

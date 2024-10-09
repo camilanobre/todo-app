@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import Grid from '../template/Grid'
 import IconButton from '../template/IconButton'
-import { changeDescription, search } from './actions/todoActions'
+import { changeDescription, search, add } from './actions/todoActions'
 
 class TodoForm extends Component {
     constructor(props) {
@@ -13,18 +13,20 @@ class TodoForm extends Component {
     }
 
     keyHandler(e) {
+        const { add, search, description } = this.props
             if (e.key === 'Enter') {
-                e.shiftKey ? this.props.handleSearch() : this.props.handleAdd()
+                e.shiftKey ? search() : add(description)
             } else if (e.key === 'Escape') {
                 this.props.handleClear()
             }
     }
 
     componentDidMount() {
-
+        this.props.search()
     }
 
     render() {
+        const { add, search, description } = this.props
         return (
             <div role='form' className='todoForm'>
             <Grid cols='12 9 10'>
@@ -32,8 +34,8 @@ class TodoForm extends Component {
             </Grid>
     
             <Grid cols='12 3 2'>
-                <IconButton btnStyle='primary' icon='plus' onClick={this.props.handleAdd}></IconButton>
-                <IconButton btnStyle='info' icon='search' onClick={this.props.handleSearch}/>
+                <IconButton btnStyle='primary' icon='plus' onClick={() => add(description)}></IconButton>
+                <IconButton btnStyle='info' icon='search' onClick={() => search()}/>
                 <IconButton btnStyle='default' icon='close' onClick={this.props.handleClear}/>
             </Grid>
         </div>
@@ -42,6 +44,6 @@ class TodoForm extends Component {
 }
 
 const mapStateToProps = state => ({description: state.todo.description})
-const mapDispatchToProps = dispatch => bindActionCreators({ changeDescription, search }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ changeDescription, search, add }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps) (TodoForm)

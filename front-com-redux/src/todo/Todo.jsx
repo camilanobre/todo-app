@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import PageHeader from '../template/PageHeader'
-import TodoForm from './TodoForm'
 import TodoList from './TodoList'
+import TodoForm from './TodoForm'
 
 const URL = 'http://localhost:3003/api/todos'
 
@@ -67,7 +67,7 @@ export default class Todo extends Component {
         return(
             <div>
                 <PageHeader name="Tarefas" small="Cadastro"/>
-                <TodoForm description={this.state.description} handleChange={this.handleChange} handleAdd={this.handleAdd} handleSearch={this.handleSearch} handleClear={this.handleClear}/>
+               <TodoForm description={this.state.description} handleChange={this.handleChange} handleAdd={this.handleAdd} handleSearch={this.handleSearch} handleClear={this.handleClear}/>
                 <TodoList list={this.state.list} handleRemove={this.handleRemove} handleMarkAsDone={this.handleMarkAsDone} handleMarkAsPending={this.handleMarkAsPending}/>
             </div>
         )
