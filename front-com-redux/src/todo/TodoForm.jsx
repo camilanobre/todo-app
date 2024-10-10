@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import Grid from '../template/Grid'
 import IconButton from '../template/IconButton'
-import { changeDescription, search, add } from './actions/todoActions'
+import { changeDescription, search, add, clear } from './actions/todoActions'
 
 class TodoForm extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class TodoForm extends Component {
             if (e.key === 'Enter') {
                 e.shiftKey ? search() : add(description)
             } else if (e.key === 'Escape') {
-                this.props.handleClear()
+                this.props.clear()
             }
     }
 
@@ -36,7 +36,7 @@ class TodoForm extends Component {
             <Grid cols='12 3 2'>
                 <IconButton btnStyle='primary' icon='plus' onClick={() => add(description)}></IconButton>
                 <IconButton btnStyle='info' icon='search' onClick={() => search()}/>
-                <IconButton btnStyle='default' icon='close' onClick={this.props.handleClear}/>
+                <IconButton btnStyle='default' icon='close' onClick={this.props.clear}/>
             </Grid>
         </div>
         )
@@ -44,6 +44,6 @@ class TodoForm extends Component {
 }
 
 const mapStateToProps = state => ({description: state.todo.description})
-const mapDispatchToProps = dispatch => bindActionCreators({ changeDescription, search, add }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ changeDescription, search, add, clear }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps) (TodoForm)
