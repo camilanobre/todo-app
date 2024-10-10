@@ -10,15 +10,23 @@ export const changeDescription = event => ({
 export const search = () => {
     const request = axios.get(`${URL}?sort=-createdAt${search}`)
     return {
-        type: 'TODO_SEARCH',
+        type: 'TODO_SEARCHED',
         payload: request
     }
 }
 
 export const add = (description) => {
-    const request = axios.post(URL, {description})
-    return {
-        type: 'TODO_ADDED',
-        payload: request
+    return dispatch => {
+        axios.post(URL, { description })
+            .then(resp => dispatch({ type: 'TODO_ADDED', payload: resp.data}))
+            .then(resp => dispatch(search()))
+    }
+}
+
+export const markAsDone = (todo) => {
+    return dispatch => {
+        axios.put(`${URL}/${todo._id}`, { ...todo, done: true })
+            .then(resp => dispatch({type: 'TODO_MARKED_AS_DONE', payload: resp.data}))
+            .then(resp => dispatch(search()))
     }
 }
